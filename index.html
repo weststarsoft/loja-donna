@@ -12,12 +12,30 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; background: #F5F3F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    html, body {
+      height: 100%;
+      background: #FDF0F5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
 
     #app {
       max-width: 430px;
       margin: 0 auto;
-      background: #F5F3F0;
+      background-color: #FDF0F5;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(180,80,120,0.03) 0px,
+        rgba(180,80,120,0.03) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(180,80,120,0.03) 0px,
+        rgba(180,80,120,0.03) 1px,
+        transparent 1px,
+        transparent 6px
+      );
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -106,45 +124,47 @@
     .cf-wrap:active { cursor: grabbing; }
     .cf-card {
       position: absolute; width: 224px;
-      background: #1e1e1e; border-radius: 22px;
-      border: 0.5px solid rgba(255,255,255,0.07);
+      background: #FFFFFF;
+      border-radius: 22px;
+      border: 0.5px solid rgba(212,83,126,0.15);
+      box-shadow: 0 4px 24px rgba(212,83,126,0.08);
       overflow: hidden; will-change: transform, opacity;
     }
     .cf-img {
       width: 100%; height: 245px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 92px; background: #252525; position: relative;
+      font-size: 92px; background: #FDF0F5; position: relative;
     }
     .cf-heart {
       position: absolute; top: 12px; right: 12px;
-      background: rgba(255,255,255,0.12);
-      border: 0.5px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.9);
+      border: 0.5px solid rgba(212,83,126,0.2);
       border-radius: 50%; width: 34px; height: 34px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; font-size: 15px; z-index: 2;
     }
-    .cf-heart.liked { background: rgba(212,83,126,0.3); border-color: #D4537E; }
+    .cf-heart.liked { background: rgba(212,83,126,0.1); border-color: #D4537E; }
     .cf-badges {
       position: absolute; bottom: 10px; left: 10px; right: 10px;
       display: flex; justify-content: space-between; align-items: center;
     }
     .bs { background: #D4537E; color: #fff; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
-    .bs.safe { background: rgba(255,255,255,0.13); color: rgba(255,255,255,0.7); }
-    .bv { background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.65); font-size: 10px; padding: 4px 8px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+    .bs.safe { background: rgba(212,83,126,0.12); color: #993556; }
+    .bv { background: rgba(212,83,126,0.1); color: #993556; font-size: 10px; padding: 4px 8px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
     .vdot { width: 5px; height: 5px; background: #EF9F27; border-radius: 50%; }
     .cf-info { padding: 14px 16px 16px; }
-    .cf-name { font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+    .cf-name { font-size: 14px; font-weight: 500; color: #1A1A1A; margin-bottom: 8px; }
     .cf-prices { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
-    .cf-old { font-size: 11px; color: rgba(255,255,255,0.28); text-decoration: line-through; }
+    .cf-old { font-size: 11px; color: #bbb; text-decoration: line-through; }
     .cf-price { font-size: 21px; font-weight: 500; color: #D4537E; }
     .cf-btn {
       width: 100%; background: #D4537E; color: #fff;
       border: none; border-radius: 12px; padding: 13px 0;
       font-size: 14px; font-weight: 500; cursor: pointer;
     }
-    .cf-btn.added { background: rgba(212,83,126,0.15); color: #D4537E; border: 1px solid #D4537E; }
+    .cf-btn.added { background: rgba(212,83,126,0.08); color: #D4537E; border: 1px solid #D4537E; }
     .cf-dots { display: flex; gap: 6px; justify-content: center; padding: 6px 0 14px; }
-    .cf-dot { width: 6px; height: 6px; border-radius: 50%; background: #bbb; transition: all 0.3s; cursor: pointer; }
+    .cf-dot { width: 6px; height: 6px; border-radius: 50%; background: #ddd; transition: all 0.3s; cursor: pointer; }
     .cf-dot.active { background: #D4537E; width: 18px; border-radius: 3px; }
 
     /* ── CART ── */
@@ -234,7 +254,7 @@
       <div class="banner-dots" id="banner-dots"></div>
     </div>
     <div class="cat-tabs" id="cat-tabs"></div>
-    <div id="home-sections" style="background:#F5F3F0;padding-bottom:16px"></div>
+    <div id="home-sections" style="background:transparent;padding-bottom:16px"></div>
   </div>
 
   <!-- CART -->

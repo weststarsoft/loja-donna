@@ -169,9 +169,14 @@ function makeCoverFlow(items, uid) {
 
     const card = document.createElement('div');
     card.className = 'cf-card';
+    const imagemHTML = p.imagem
+      ? `<img src="${p.imagem}" alt="${p.nome}"
+            style="width:100%;height:100%;object-fit:cover;display:block;">`
+      : `<span style="font-size:88px">${p.emoji}</span>`;
+
     card.innerHTML = `
       <div class="cf-img">
-        <span style="font-size:88px">${p.emoji}</span>
+        ${imagemHTML}
         <button class="cf-heart${liked ? ' liked' : ''}" data-id="${p.id}">
           ${liked ? '❤️' : '🤍'}
         </button>

@@ -12,16 +12,6 @@ const fmt  = v => 'R$ ' + v.toFixed(2).replace('.', ',');
 const fmtV = v => v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v;
 const mod  = (n, m) => ((n % m) + m) % m;
 
-// ── RELÓGIO ───────────────────────────────
-function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
-  document.getElementById('clock').textContent = h + ':' + m;
-}
-updateClock();
-setInterval(updateClock, 10000);
-
 // ── CONTATO ───────────────────────────────
 function openWhatsApp() {
   window.open('https://wa.me/' + WHATSAPP_NUMBER, '_blank');

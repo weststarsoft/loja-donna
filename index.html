@@ -2,340 +2,102 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="theme-color" content="#D4537E" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Donna" />
-  <title>Loja Donna</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      height: 100%;
-      background: #FDF0F5;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-
-    #app {
-      max-width: 430px;
-      margin: 0 auto;
-      background-color: #FDF0F5;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(180,80,120,0.03) 0px,
-        rgba(180,80,120,0.03) 1px,
-        transparent 1px,
-        transparent 6px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        rgba(180,80,120,0.03) 0px,
-        rgba(180,80,120,0.03) 1px,
-        transparent 1px,
-        transparent 6px
-      );
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    /* ── STATUS BAR ── */
-    /* ── HEADER ── */
-    .header {
-      background: #D4537E;
-      background-image: url('images/header-bg.png');
-      background-size: cover;
-      background-position: center;
-      padding: 8px 16px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-    .header-logo { font-size: 22px; font-weight: 500; letter-spacing: 3px; color: #fff; }
-    .header-actions { display: flex; gap: 12px; align-items: center; }
-    .icon-btn {
-      background: rgba(255,255,255,0.2);
-      border: 0.5px solid rgba(255,255,255,0.25);
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: #fff; position: relative;
-    }
-    .badge {
-      position: absolute; top: -3px; right: -3px;
-      background: #EF9F27; color: #fff;
-      font-size: 9px; font-weight: 600;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ── SCREENS ── */
-    .screen { display: none; flex-direction: column; flex: 1; overflow-y: auto; }
-    .screen.active { display: flex; }
-
-    /* ── BANNER ── */
-    .banner-area { background: #D4537E; padding: 0 14px 16px; }
-    .banner-card {
-      border-radius: 16px; padding: 18px 16px;
-      display: flex; justify-content: space-between; align-items: center;
-      min-height: 110px;
-    }
-    .banner-text h3 { font-size: 16px; font-weight: 500; }
-    .banner-text p { font-size: 12px; margin-top: 3px; opacity: 0.75; }
-    .banner-cta {
-      display: inline-block; margin-top: 10px;
-      border: none; border-radius: 20px;
-      padding: 7px 16px; font-size: 12px; font-weight: 500; cursor: pointer;
-    }
-    .banner-emoji { font-size: 42px; line-height: 1; flex-shrink: 0; }
-    .banner-dots { display: flex; gap: 5px; justify-content: center; padding: 8px 0 2px; }
-    .bdot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); transition: all 0.3s; cursor: pointer; }
-    .bdot.active { background: #fff; width: 18px; border-radius: 3px; }
-
-    /* ── CAT TABS ── */
-    .cat-tabs { display: flex; overflow-x: auto; background: #fff; border-bottom: 1px solid #e0e0e0; flex-shrink: 0; }
-    .cat-tabs::-webkit-scrollbar { display: none; }
-    .cat-tab {
-      padding: 11px 14px; font-size: 12px; font-weight: 500; color: #666;
-      cursor: pointer; border: none; background: none;
-      white-space: nowrap; border-bottom: 2.5px solid transparent; transition: all 0.15s; flex-shrink: 0;
-    }
-    .cat-tab.active { color: #D4537E; border-bottom-color: #D4537E; }
-
-    /* ── SECTION ── */
-    .section-block { padding: 18px 0 6px; }
-    .section-header { padding: 0 18px 6px; display: flex; justify-content: space-between; align-items: baseline; }
-    .sec-title { font-size: 15px; font-weight: 500; color: #222; }
-    .sec-sub { font-size: 11px; color: #888; margin-top: 1px; }
-    .sec-all { font-size: 12px; color: #D4537E; cursor: pointer; }
-
-    /* ── COVER FLOW ── */
-    .cf-wrap {
-      position: relative; height: 430px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; perspective: 900px;
-      cursor: grab; user-select: none;
-    }
-    .cf-wrap:active { cursor: grabbing; }
-    .cf-card {
-      position: absolute; width: 224px;
-      background: #FFFFFF;
-      border-radius: 22px;
-      border: 0.5px solid rgba(212,83,126,0.15);
-      box-shadow: 0 4px 24px rgba(212,83,126,0.08);
-      overflow: hidden; will-change: transform, opacity;
-    }
-    .cf-img {
-      width: 100%; height: 245px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 92px; background: #FDF0F5; position: relative;
-    }
-    .cf-heart {
-      position: absolute; top: 12px; right: 12px;
-      background: rgba(255,255,255,0.9);
-      border: 0.5px solid rgba(212,83,126,0.2);
-      border-radius: 50%; width: 34px; height: 34px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 15px; z-index: 2;
-    }
-    .cf-heart.liked { background: rgba(212,83,126,0.1); border-color: #D4537E; }
-    .cf-badges {
-      position: absolute; bottom: 10px; left: 10px; right: 10px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .bs { background: #D4537E; color: #fff; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
-    .bs.safe { background: rgba(212,83,126,0.12); color: #993556; }
-    .bv { background: rgba(212,83,126,0.1); color: #993556; font-size: 10px; padding: 4px 8px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
-    .vdot { width: 12px; height: 12px; flex-shrink: 0; }
-    .cf-info { padding: 14px 16px 16px; }
-    .cf-name { font-size: 14px; font-weight: 500; color: #1A1A1A; margin-bottom: 8px; }
-    .cf-prices { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
-    .cf-old { font-size: 11px; color: #bbb; text-decoration: line-through; }
-    .cf-price { font-size: 21px; font-weight: 500; color: #D4537E; }
-    .cf-btn {
-      width: 100%; background: #D4537E; color: #fff;
-      border: none; border-radius: 12px; padding: 13px 0;
-      font-size: 14px; font-weight: 500; cursor: pointer;
-    }
-    .cf-btn.added { background: rgba(212,83,126,0.08); color: #D4537E; border: 1px solid #D4537E; }
-    .cf-dots { display: flex; gap: 6px; justify-content: center; padding: 6px 0 14px; }
-    .cf-dot { width: 6px; height: 6px; border-radius: 50%; background: #ddd; transition: all 0.3s; cursor: pointer; }
-    .cf-dot.active { background: #D4537E; width: 18px; border-radius: 3px; }
-
-    /* ── CART ── */
-    .cart-list { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-    .cart-item { background: #fff; border: 0.5px solid #eee; border-radius: 14px; padding: 12px; display: flex; align-items: center; gap: 10px; }
-    .ci-img { width: 56px; height: 72px; background: #f5f5f5; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
-    .qty-ctrl { display: flex; align-items: center; gap: 10px; margin-top: 7px; }
-    .qty-btn { background: #f5f5f5; border: 0.5px solid #e0e0e0; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; color: #333; }
-    .qty-val { font-size: 13px; font-weight: 500; color: #222; min-width: 18px; text-align: center; }
-    .cart-remove { background: none; border: none; cursor: pointer; font-size: 16px; color: #ccc; padding: 4px; }
-    .cart-footer { padding: 14px 18px; border-top: 0.5px solid #eee; background: #fff; flex-shrink: 0; }
-    .ctr { display: flex; justify-content: space-between; font-size: 14px; color: #888; margin-bottom: 6px; }
-    .ctr.main { font-size: 17px; font-weight: 500; color: #222; margin-top: 8px; margin-bottom: 14px; }
-    .btn-p { width: 100%; background: #D4537E; color: #fff; border: none; border-radius: 14px; padding: 14px; font-size: 15px; font-weight: 500; cursor: pointer; }
-    .btn-s { width: 100%; background: transparent; color: #D4537E; border: 1.5px solid #D4537E; border-radius: 14px; padding: 14px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 10px; }
-    .cart-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 40px; color: #888; font-size: 14px; }
-
-    /* ── PROFILE ── */
-    .profile-header { background: linear-gradient(160deg, #D4537E, #993556); padding: 30px 16px 24px; text-align: center; }
-    .avatar { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; color: #fff; margin: 0 auto 10px; border: 2px solid rgba(255,255,255,0.4); }
-    .loyalty { margin: 14px 16px; background: #D4537E; border-radius: 16px; padding: 16px; color: #fff; }
-    .loy-bar { background: rgba(255,255,255,0.3); border-radius: 4px; height: 6px; }
-    .loy-fill { background: #fff; border-radius: 4px; height: 6px; width: 40%; }
-    .mitem { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; border-bottom: 0.5px solid #f0f0f0; font-size: 14px; color: #333; background: #fff; }
-    .micon { width: 34px; height: 34px; background: #FFF0F5; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-    .msec { padding: 14px 18px 6px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #999; font-weight: 500; background: #F5F3F0; }
-
-    /* ── DRAWER ── */
-    .drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; }
-    .drawer-overlay.open { display: block; }
-    .drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 265px; background: #fff; z-index: 101; transform: translateX(-100%); transition: transform 0.25s ease; display: flex; flex-direction: column; border-radius: 0 20px 20px 0; }
-    .drawer.open { transform: translateX(0); }
-    .drawer-head { background: #D4537E; padding: 48px 20px 20px; color: #fff; }
-    .ditem { display: flex; align-items: center; gap: 12px; padding: 14px 20px; cursor: pointer; font-size: 14px; color: #333; border-bottom: 0.5px solid #f0f0f0; }
-    .ditem:active { background: #fafafa; }
-    .dnew { background: #D4537E; color: #fff; font-size: 9px; padding: 2px 7px; border-radius: 8px; margin-left: auto; font-weight: 500; }
-    .drawer-footer { padding: 16px 20px; border-top: 0.5px solid #eee; margin-top: auto; }
-    .sbtn { flex: 1; background: #f5f5f5; border: 0.5px solid #eee; border-radius: 8px; padding: 9px 0; font-size: 12px; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-
-    /* ── NAV ── */
-    .nav-bar { background: #fff; border-top: 1px solid #e0e0e0; display: flex; padding: 8px 0 max(13px, env(safe-area-inset-bottom)); flex-shrink: 0; }
-    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; font-size: 10px; color: #888; font-weight: 500; border: none; background: none; padding: 4px 0; }
-    .nav-item.active { color: #D4537E; }
-    .nav-item svg { width: 20px; height: 20px; }
-
-    /* ── CONFIRM ── */
-    .confirm-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; gap: 12px; }
-    .confirm-code { background: #FFF0F5; border: 0.5px solid #F4C0D1; border-radius: 12px; padding: 12px 24px; font-size: 18px; font-weight: 500; color: #D4537E; letter-spacing: 3px; margin: 8px 0; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de Confronto – Ice.Bet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div id="app">
 
-  <!-- HEADER -->
-  <div class="header">
-    <button class="icon-btn" onclick="toggleDrawer()">
-      <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
-        <rect width="16" height="2" rx="1" fill="white"/>
-        <rect y="6" width="12" height="2" rx="1" fill="white"/>
-        <rect y="12" width="16" height="2" rx="1" fill="white"/>
-      </svg>
-    </button>
-    <div class="header-logo">DONNA</div>
-    <div class="header-actions">
-      <button class="icon-btn" onclick="showScreen('cart')">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M1 1h2.5l2 8h7l1.5-5.5H4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <circle cx="7" cy="13.5" r="1" fill="white"/>
-          <circle cx="11" cy="13.5" r="1" fill="white"/>
-        </svg>
-        <span class="badge" id="cart-badge">0</span>
-      </button>
-    </div>
+  <div class="watermark">
+    <img src="logos/icebet-logo.png" alt="Ice.Bet" />
   </div>
 
-  <!-- HOME -->
-  <div class="screen active" id="screen-home">
-    <div class="banner-area">
-      <div class="banner-card" id="banner-card">
-        <div class="banner-text">
-          <h3 id="b-title">Copa do Mundo 🇧🇷</h3>
-          <p id="b-sub">Vista o Brasil com estilo</p>
-          <button class="banner-cta" id="b-cta">Ver coleção</button>
+  <div class="container">
+
+    <div class="header">
+      <a href="https://ice.bet.br/" target="_blank" title="Acessar Ice.Bet">
+        <img src="logos/icebet-logo.png" class="header-logo" alt="Ice.Bet" />
+      </a>
+      <div class="header-text">
+        <h1>Gerador de Confronto</h1>
+        <p>Selecione a liga e os times para gerar a imagem</p>
+      </div>
+      <div class="tools-wrapper">
+        <button class="tools-btn" onclick="toggleTools()" title="Ferramentas">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          Ferramentas
+        </button>
+        <div class="tools-panel" id="toolsPanel">
+          <div class="tools-panel-title">Ferramentas</div>
+          <a href="https://banner.starsoft.games/" target="_blank" class="tool-item">
+            <div class="tool-icon">🖼️</div>
+            <div class="tool-info">
+              <div class="tool-name">Gerador de Banners</div>
+              <div class="tool-desc">Crie banners para suas campanhas</div>
+            </div>
+          </a>
         </div>
-        <div id="b-emoji" class="banner-emoji">🏆</div>
-      </div>
-      <div class="banner-dots" id="banner-dots"></div>
-    </div>
-    <div class="cat-tabs" id="cat-tabs"></div>
-    <div id="home-sections" style="background:transparent;padding-bottom:16px"></div>
-  </div>
-
-  <!-- CART -->
-  <div class="screen" id="screen-cart">
-    <div style="padding:14px 18px;font-size:15px;font-weight:500;color:#222;border-bottom:0.5px solid #eee;background:#fff">Minha Sacola</div>
-    <div id="cart-content" style="background:#F5F3F0;flex:1;display:flex;flex-direction:column"></div>
-  </div>
-
-  <!-- WISHLIST -->
-  <div class="screen" id="screen-wishlist">
-    <div style="padding:14px 18px;font-size:15px;font-weight:500;color:#222;border-bottom:0.5px solid #eee;background:#fff">Lista de Desejos ❤️</div>
-    <div id="wishlist-content" style="background:#F5F3F0;flex:1"></div>
-  </div>
-
-  <!-- PROFILE -->
-  <div class="screen" id="screen-profile">
-    <div class="profile-header">
-      <div class="avatar">AN</div>
-      <div style="font-size:17px;font-weight:500;color:#fff">Ana Lucia</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:3px">ana.lucia@email.com</div>
-    </div>
-    <div class="loyalty">
-      <div style="font-size:11px;opacity:0.85;letter-spacing:1px;text-transform:uppercase">Pontos Donna</div>
-      <div style="font-size:28px;font-weight:500;margin:4px 0 8px">1.240 pts</div>
-      <div class="loy-bar"><div class="loy-fill"></div></div>
-      <div style="font-size:11px;opacity:0.8;margin-top:5px">760 pts para Nível Ouro ✨</div>
-    </div>
-    <div style="background:#F5F3F0">
-      <div class="msec">Minha Conta</div>
-      <div class="mitem" onclick="showScreen('wishlist')"><div class="micon">❤️</div>Lista de Desejos<span style="margin-left:auto;color:#bbb">›</span></div>
-      <div class="mitem"><div class="micon">📦</div>Meus Pedidos<span style="margin-left:auto;color:#bbb">›</span></div>
-      <div class="mitem"><div class="micon">📍</div>Endereços<span style="margin-left:auto;color:#bbb">›</span></div>
-      <div class="msec">Contato</div>
-      <div class="mitem" onclick="openWhatsApp()"><div class="micon">💬</div>WhatsApp<span style="margin-left:auto;color:#bbb">›</span></div>
-      <div class="mitem" onclick="openInstagram()"><div class="micon">📷</div>Instagram<span style="margin-left:auto;color:#bbb">›</span></div>
-    </div>
-  </div>
-
-  <!-- DRAWER -->
-  <div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
-  <div class="drawer" id="drawer">
-    <div class="drawer-head">
-      <div style="font-size:22px;font-weight:500;letter-spacing:2px">DONNA</div>
-      <div style="font-size:12px;opacity:0.8;margin-top:3px">Moda Feminina</div>
-    </div>
-    <div class="ditem" onclick="setCat('Ofertas');toggleDrawer()"><span>🏷️</span>Ofertas<span class="dnew">HOT</span></div>
-    <div class="ditem" onclick="setCat('Coleção Especial');toggleDrawer()"><span>✨</span>Coleção Especial</div>
-    <div class="ditem" onclick="setCat('Treino');toggleDrawer()"><span>🏃</span>Roupa de Treino<span class="dnew">NEW</span></div>
-    <div class="ditem" onclick="setCat('Novidade');toggleDrawer()"><span>🌟</span>Novidade da Semana</div>
-    <div class="drawer-footer">
-      <div style="font-size:12px;color:#999;margin-bottom:10px">Nos acompanhe</div>
-      <div style="display:flex;gap:10px">
-        <button class="sbtn" onclick="openWhatsApp()">💬 WhatsApp</button>
-        <button class="sbtn" onclick="openInstagram()">📷 Instagram</button>
       </div>
     </div>
+
+    <div class="section-label">Esporte</div>
+    <div id="sportButtons" class="sport-selector"></div>
+
+    <div class="mode-toggle">
+      <button id="modeSame" class="mode-btn active" onclick="setMode('same')">Mesma Liga</button>
+      <button id="modeFree" class="mode-btn" onclick="setMode('free')">Confronto Livre</button>
+    </div>
+
+    <!-- Modo Mesma Liga -->
+    <div id="sameModeSection">
+      <div class="section-label" id="leagueLabel">Liga</div>
+      <div id="leagueButtons" class="league-selector"></div>
+      <div class="selectors">
+        <div class="team-box">
+          <div class="box-label">Time da Casa</div>
+          <div class="selected-team" id="selected1">Nenhum selecionado</div>
+          <div class="team-grid" id="grid1"></div>
+        </div>
+        <div class="team-box">
+          <div class="box-label">Time Visitante</div>
+          <div class="selected-team" id="selected2">Nenhum selecionado</div>
+          <div class="team-grid" id="grid2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modo Livre -->
+    <div id="freeModeSection" style="display:none">
+      <div class="selectors">
+        <div class="team-box">
+          <div class="box-label">Time da Casa</div>
+          <div class="selected-team" id="freeSelected1">Nenhum selecionado</div>
+          <input type="text" id="freeSearch1" class="team-search" placeholder="🔍 Buscar time..." oninput="searchTeam(1)" />
+          <div class="team-grid" id="freeGrid1"></div>
+        </div>
+        <div class="team-box">
+          <div class="box-label">Time Visitante</div>
+          <div class="selected-team" id="freeSelected2">Nenhum selecionado</div>
+          <input type="text" id="freeSearch2" class="team-search" placeholder="🔍 Buscar time..." oninput="searchTeam(2)" />
+          <div class="team-grid" id="freeGrid2"></div>
+        </div>
+      </div>
+    </div>
+
+    <button id="generateBtn" disabled onclick="generateImage()">⚽ Gerar Imagem</button>
+
+    <div id="preview">
+      <div class="preview-label">Preview</div>
+      <canvas id="canvas"></canvas>
+      <br/>
+      <button id="downloadBtn" onclick="downloadImage()">⬇️ Baixar PNG</button>
+    </div>
+
   </div>
 
-  <!-- NAV BAR -->
-  <div class="nav-bar">
-    <button class="nav-item active" id="nav-home" onclick="showScreen('home')">
-      <svg viewBox="0 0 20 20" fill="none"><path d="M3 9.5L10 3l7 6.5V17H13v-4H7v4H3V9.5Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-      Início
-    </button>
-    <button class="nav-item" id="nav-wishlist" onclick="showScreen('wishlist')">
-      <svg viewBox="0 0 20 20" fill="none"><path d="M10 17S3 12.5 3 7.5A4 4 0 0 1 10 5a4 4 0 0 1 7 2.5C17 12.5 10 17 10 17Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-      Desejos
-    </button>
-    <button class="nav-item" id="nav-cart" onclick="showScreen('cart')">
-      <svg viewBox="0 0 20 20" fill="none"><path d="M2 2h2.5l2.5 9h8l2-6H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="8.5" cy="16.5" r="1.2" fill="currentColor"/><circle cx="13.5" cy="16.5" r="1.2" fill="currentColor"/></svg>
-      Sacola
-    </button>
-    <button class="nav-item" id="nav-profile" onclick="showScreen('profile')">
-      <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-      Perfil
-    </button>
-  </div>
-
-</div>
-
-<script src="data.js"></script>
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

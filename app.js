@@ -184,7 +184,13 @@ function makeCoverFlow(items, uid) {
           <span class="bs${urgent ? '' : ' safe'}">
             ${urgent ? '🔥 Restam ' + p.estoque : p.estoque + ' unid.'}
           </span>
-          <span class="bv"><span class="vdot"></span>${fmtV(p.views)}</span>
+          <span class="bv">
+            <svg class="vdot" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="#993556" stroke-width="1.4" fill="none"/>
+              <circle cx="8" cy="8" r="2" stroke="#993556" stroke-width="1.4" fill="none"/>
+            </svg>
+            ${fmtV(p.views)}
+          </span>
         </div>
       </div>
       <div class="cf-info">

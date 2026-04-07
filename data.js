@@ -67,25 +67,25 @@ const PRODUCTS = [
   // ── Coleção Especial ──────────────────────
   {
     id: 1, nome: 'Top Cropped Verde',
-    imagem: 'images/colecao-especial-1.png', cat: 'Coleção Especial',
+    emoji: '🩱', cat: 'Coleção Especial',
     preco_antigo: 129.90, preco_atual: 89.90,
     estoque: 3, views: 847,
   },
   {
     id: 2, nome: 'Cropped Bicolor',
-    imagem: 'images/colecao-especial-2.png', cat: 'Coleção Especial',
+    emoji: '👚', cat: 'Coleção Especial',
     preco_antigo: 259.90, preco_atual: 189.90,
     estoque: 2, views: 1203,
   },
   {
     id: 3, nome: 'Polo Cropped Amarela',
-    imagem: 'images/colecao-especial-3.png', cat: 'Coleção Especial',
+    emoji: '👗', cat: 'Coleção Especial',
     preco_antigo: 199.90, preco_atual: 149.90,
     estoque: 5, views: 562,
   },
   {
     id: 4, nome: 'Body Preto Bandeira',
-    imagem: 'images/colecao-especial-4.png', cat: 'Coleção Especial',
+    emoji: '🩱', cat: 'Coleção Especial',
     preco_antigo: 99.90, preco_atual: 69.90,
     estoque: 8, views: 934,
   },
